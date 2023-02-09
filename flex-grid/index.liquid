@@ -1,0 +1,143 @@
+<!-- Grid Row Flex Start -->
+{% set email = {
+ max_width: 600,
+ max_width_px: '600px'
+ } %}
+{% set grid_comp = {
+ bg_color: 'white',
+ column_count: 2
+ padding_item_x: 20,
+ padding_item_y: 0
+ } %}
+{% set img_comp = {
+ padding_x: 25,
+ padding_y: 10
+ } %}
+{% set txt_comp = {
+ font_family: 'Arial',
+ font_size: '14px',
+ font_weight: 900,
+ color: '#333333',
+ text_align: 'center'
+ } %}
+{% set column_index = 0 %}
+{% set row_index = 0 %}
+{% for product in products %}
+  {% if column_index == 0 %}
+    <!--[if mso | IE]>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:{{ grid_comp.max_width_px }};" width="{{ grid_comp.max_width }}" bgcolor="{{ grid_comp.bg_color }}" >
+    <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+    <![endif]-->
+    <div style="background:{{ grid_comp.bg_color }};background-color:{{ grid_comp.bg_color }};margin:0px auto;max-width:{{ grid_comp.max_width_px }};">
+      <table
+        align="center"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        role="presentation"
+        style="background:{{ grid_comp.bg_color }};background-color:{{ grid_comp.bg_color }};width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:{{ grid_comp.padding_item_x }}px 0;text-align:center;">
+            <!--[if mso | IE]>
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+            <![endif]-->
+            {% endif %}
+            {% if column_index > 0 and ( column_index < ( grid_comp.column_count - 1 ) ) %}
+              <!--[if mso | IE]>
+              <td class="" style="vertical-align:top;width:{{ email.max_width/grid_comp.column_count }}px;" >
+              <![endif]-->
+            {% endif %}
+
+            <div class="clerk-column-per-{{ 100/grid_comp.column_count }} clerk-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+              <table
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                role="presentation"
+                width="100%">
+                <tbody>
+                  <tr>
+                    <td style="vertical-align:top;padding:0;">
+                      <table
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        role="presentation"
+                        style=""
+                        width="100%">
+                        <tbody>
+                          <!-- Grid Component Inner -->
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:{{ img_comp.padding_y }}px {{ img_comp.padding_x }}px;word-break:break-word;">
+                              <table
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                role="presentation"
+                                style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:{{ (email.max_width / grid_comp.column_count) - (img_comp.padding_x * grid_comp.column_count) }}px;">
+                                      <a href="{{ product.url }}" target="_blank">
+                                        <img
+                                          height="auto"
+                                          src="{{ product.image }}"
+                                          style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
+                                          width="{{ (email.max_width / grid_comp.column_count) - (img_comp.padding_x * grid_comp.column_count) }}" />
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="{{ txt_comp.text_align }}" style="font-size:0px;padding:0;word-break:break-word;">
+                              <div style="font-family:{{ txt_comp.font_family }};font-size:{{ txt_comp.font_size }};font-weight:{{ txt_comp.font_weight }};line-height:1;text-align:{{ txt_comp.text_align }};color:{{ txt_comp.color }};">{{ product.name }}</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:10px 0px;word-break:break-word;">
+                              <div style="font-family:{{ txt_comp.font_family }};font-size:{{ txt_comp.font_size }};font-weight:{{ txt_comp.font_weight }};line-height:1;text-align:{{ txt_comp.text_align }};color:{{ txt_comp.color }};">{{ product.price | money_eu }}</div>
+                            </td>
+                          </tr>
+                          <!-- Grid Component Inner -->
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {% if column_index > 0 and ( column_index < ( grid_comp.column_count - 1 ) ) %}
+              <!--[if mso | IE]>
+              </td>
+              <![endif]-->
+            {% endif %}
+
+            {% if column_index == ( grid_comp.column_count - 1 ) %}
+              <!--[if mso | IE]>
+              </td>
+              </tr>
+              </table>
+              <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
+  {% endif %}
+  {% set column_index = column_index + 1 %}
+  {% if column_index == ( grid_comp.column_count - 1 ) %}
+    {% set column_index = 0 %}
+  {% endif %}
+{% endfor %}
